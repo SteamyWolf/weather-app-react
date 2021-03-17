@@ -1,0 +1,12 @@
+.main-weatherCard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.root-weatherCard {
+   width: 155px;
+   /* height: 300px;  */
+   margin: 20px;
+}

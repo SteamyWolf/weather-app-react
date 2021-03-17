@@ -1,0 +1,12 @@
+.root {
+    flex-grow: 1;
+}
+.title {
+    flex-grow: 1;
+}
+.button {
+    color: white;
+}
+.button span {
+    color: white;
+}

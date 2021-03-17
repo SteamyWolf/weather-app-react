@@ -1,0 +1,24 @@
+.root {
+    max-width: 445px;
+    margin: 30px auto;
+}
+.media {
+    height: 200px;
+    /* padding-top: 56.25%;
+    margin-top: 30px; */
+}
+
+.secondTypography {
+    height: 300px;
+}
+.searchMedia {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.buttonSeperator {
+    display: flex;
+    justify-content: space-evenly;
+}
