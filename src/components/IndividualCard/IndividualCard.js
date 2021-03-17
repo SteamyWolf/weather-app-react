@@ -6,7 +6,7 @@ import CloudyImg from '../../images/cloudy.jpg';
 import SnowImg from '../../images/snowy.jpg';
 import FireImg from '../../images/fire.png';
 
-const IndividualCard = ({dayData}) => {
+const IndividualCard = ({dayData, backClick}) => {
     return (
         <>
             <Card>
@@ -20,14 +20,20 @@ const IndividualCard = ({dayData}) => {
                                         FireImg} 
                 />
                 <CardContent>
-                    <Typography>
-                        Loop here for hourly temps
+                    <Typography component="h3" variant="h5">
+                        Temperatures throughout the day
                     </Typography>
                     <Typography>
-                        {dayData.temp.max}
+                        <p>Day: {dayData.feels_like.day}</p>
+                        <p>Evening: {dayData.feels_like.eve}</p>
+                        <p>Morning: {dayData.feels_like.morn}</p>
+                        <p>Night: {dayData.feels_like.night}</p>
                     </Typography>
                 </CardContent>
                 </CardActionArea>
+                <CardActions>
+                    <Button variant="contained" color="primary" onClick={backClick}>Back</Button>
+                </CardActions>
             </Card>
         </>
     )

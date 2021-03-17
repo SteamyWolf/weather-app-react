@@ -25,8 +25,13 @@ const WeatherCard = ({weatherData}) => {
         setIsCardClicked(true);
     }
 
+    const handleBackClick = () => {
+        setIsCardClicked(false);
+    }
+
     return (
         <>
+        <Button color="primary" variant="contained">View Todays</Button>
         {!isCardClicked ?
         <div className="main-weatherCard">
         {acquiredWeatherData.daily.map(day => {
@@ -55,7 +60,7 @@ const WeatherCard = ({weatherData}) => {
             })}
         </div> 
         :
-        <IndividualCard dayData={dataForIndividualCard} />
+        <IndividualCard dayData={dataForIndividualCard} backClick={handleBackClick} />
         }
         </>
     )
