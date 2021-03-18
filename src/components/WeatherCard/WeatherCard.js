@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './WeatherCard.css';
 import IndividualCard from '../IndividualCard/IndividualCard';
-import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography, TextField } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import SunnyImg from '../../images/sunny.jpg';
 import RainyImg from '../../images/rainy.jpg';
 import CloudyImg from '../../images/cloudy.jpg';
@@ -48,7 +48,6 @@ const WeatherCard = ({weatherData, currentTempType}) => {
             })
             setAcquiredWeatherData(configuredWeatherData)
         }
-        console.log('HIT EFFECT')
     }
 
     const celsiusToFahrenheit = (celsius) => {
@@ -62,10 +61,8 @@ const WeatherCard = ({weatherData, currentTempType}) => {
     };
 
     const handleCardClick = (day) => {
-        console.log(currentTempType);
         setDataForIndividualCard(day);
         setIsCardClicked(true);
-        console.log(currentTempType);
     }
 
     const handleBackClick = () => {

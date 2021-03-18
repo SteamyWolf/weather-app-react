@@ -12,14 +12,11 @@ const App = () => {
   const [currentTempType, setCurrentTempType] = useState('Fahrenheit');
 
   const getDataFromAskLocation = (city) => {
-    console.log(city)
     let lat = city.data.results[0].geometry.lat;
     let long = city.data.results[0].geometry.lng;
     getWeatherData(lat, long)
       .then(weather => {
-        console.log(weather)
         if (weather.status === 200) {
-          // Kelvin to Fahrenheit: F = 9/5(K - 273) + 32
           weather.data.current.temp = convertToFahrenheit(weather.data.current.temp);
           weather.data.daily.forEach(day => {
             day.temp.day = convertToFahrenheit(day.temp.day);
@@ -33,7 +30,6 @@ const App = () => {
             day.feels_like.morn = convertToFahrenheit(day.feels_like.morn);
             day.feels_like.night = convertToFahrenheit(day.feels_like.night);
           })
-          console.log(weather.data)
           setWeatherData(weather.data);
           setShowAskLocation(false);
         } else {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './AskLocation.css';
 import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography, TextField } from '@material-ui/core';
@@ -11,7 +11,6 @@ const AskLocation = ({sendDataToApp}) => {
 
     const getLatLong = async (city) => {
         const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${city}&key=45facaa86dae4aa1931ec743bfe9b84e`);
-        console.log(response)
         setCityData(response)
         return response;
     }
@@ -20,7 +19,6 @@ const AskLocation = ({sendDataToApp}) => {
         setCityInput('');
         getLatLong(city)
             .then(response => {
-                console.log(response)
                 if (response.data.status.code === 200) {
                     setCityFound(!cityFound);
                 } else {

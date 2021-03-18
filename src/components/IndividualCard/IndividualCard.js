@@ -1,6 +1,6 @@
 import React from 'react';
 import './IndividualCard.css';
-import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography, TextField } from '@material-ui/core';
+import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import Marble from '../../images/marble.jpg'
 
 const IndividualCard = ({dayData, backClick, currentTempType}) => {
