@@ -70,8 +70,8 @@ const WeatherCard = ({weatherData, currentTempType}) => {
     }
 
     useEffect(() => {
-        console.log('USE EFFECT INITIATED');
         initialChangeTemp();
+        // eslint-disable-next-line
     }, [currentTempType])
 
     return (
