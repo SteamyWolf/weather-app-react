@@ -1,33 +1,23 @@
 import React from 'react';
+import './IndividualCard.css';
 import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography, TextField } from '@material-ui/core';
-import SunnyImg from '../../images/sunny.jpg';
-import RainyImg from '../../images/rainy.jpg';
-import CloudyImg from '../../images/cloudy.jpg';
-import SnowImg from '../../images/snowy.jpg';
-import FireImg from '../../images/fire.png';
+import Marble from '../../images/marble.jpg'
 
-const IndividualCard = ({dayData, backClick}) => {
+const IndividualCard = ({dayData, backClick, currentTempType}) => {
     return (
         <>
-            <Card>
+            <Card className="ind-card">
                 <CardActionArea>
-                <CardMedia className="media" 
-                                       image={
-                                        dayData.weather[0].main === 'Clear' ? SunnyImg : 
-                                        dayData.weather[0].main === 'Rain' ? RainyImg : 
-                                        dayData.weather[0].main === 'Clouds' ? CloudyImg :
-                                        dayData.weather[0].main === 'Snow' ? SnowImg : 
-                                        FireImg} 
-                />
+                <CardMedia className="media" image={Marble} />
                 <CardContent>
                     <Typography component="h3" variant="h5">
-                        Temperatures throughout the day
+                        Temperatures throughout {new Date(dayData.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' })}
                     </Typography>
-                    <Typography>
-                        <p>Day: {dayData.feels_like.day}</p>
-                        <p>Evening: {dayData.feels_like.eve}</p>
-                        <p>Morning: {dayData.feels_like.morn}</p>
-                        <p>Night: {dayData.feels_like.night}</p>
+                    <Typography component="div">
+                        <p>Day: {dayData.feels_like.day} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
+                        <p>Evening: {dayData.feels_like.eve} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
+                        <p>Morning: {dayData.feels_like.morn} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
+                        <p>Night: {dayData.feels_like.night} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
                     </Typography>
                 </CardContent>
                 </CardActionArea>

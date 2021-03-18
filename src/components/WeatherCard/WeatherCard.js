@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './WeatherCard.css';
 import IndividualCard from '../IndividualCard/IndividualCard';
 import { Card, CardActions, CardActionArea, CardContent, CardMedia, Button, Typography, TextField } from '@material-ui/core';
@@ -7,31 +7,93 @@ import RainyImg from '../../images/rainy.jpg';
 import CloudyImg from '../../images/cloudy.jpg';
 import SnowImg from '../../images/snowy.jpg';
 import FireImg from '../../images/fire.png';
+import Dusk from '../../images/dusk.jpg';
 
-const WeatherCard = ({weatherData}) => {
+const WeatherCard = ({weatherData, currentTempType}) => {
     const [isCardClicked, setIsCardClicked] = useState(false);
     const [acquiredWeatherData, setAcquiredWeatherData] = useState(weatherData);
     const [dataForIndividualCard, setDataForIndividualCard] = useState({});
 
-    // let data = weatherData.daily.forEach(day => {
-    //     let weekday = new Date(day.dt).toLocaleDateString('en-US', { weekday: 'long' });
-    //     Object.assign(day.dt, weekday)
-    // })
-    // console.log(data)
-    // setAcquiredWeatherData(data)
+    const initialChangeTemp = () => {
+        let configuredWeatherData = {...acquiredWeatherData}
+        if (currentTempType === 'Fahrenheit') {
+            console.log(configuredWeatherData.current);
+            configuredWeatherData.current.temp = fahrenheitToCelsius(configuredWeatherData.current.temp);
+            configuredWeatherData.daily.forEach(day => {
+                day.temp.day = fahrenheitToCelsius(day.temp.day);
+                day.temp.eve = fahrenheitToCelsius(day.temp.eve);
+                day.temp.max = fahrenheitToCelsius(day.temp.max);
+                day.temp.min = fahrenheitToCelsius(day.temp.min);
+                day.temp.morn = fahrenheitToCelsius(day.temp.morn);
+                day.temp.night = fahrenheitToCelsius(day.temp.night);
+                day.feels_like.day = fahrenheitToCelsius(day.feels_like.day);
+                day.feels_like.eve = fahrenheitToCelsius(day.feels_like.eve);
+                day.feels_like.morn = fahrenheitToCelsius(day.feels_like.morn);
+                day.feels_like.night = fahrenheitToCelsius(day.feels_like.night);
+            })
+            setAcquiredWeatherData(configuredWeatherData)
+        } else {
+            configuredWeatherData.current.temp = celsiusToFahrenheit(configuredWeatherData.current.temp);
+            configuredWeatherData.daily.forEach(day => {
+                day.temp.day = celsiusToFahrenheit(day.temp.day);
+                day.temp.eve = celsiusToFahrenheit(day.temp.eve);
+                day.temp.max = celsiusToFahrenheit(day.temp.max);
+                day.temp.min = celsiusToFahrenheit(day.temp.min);
+                day.temp.morn = celsiusToFahrenheit(day.temp.morn);
+                day.temp.night = celsiusToFahrenheit(day.temp.night);
+                day.feels_like.day = celsiusToFahrenheit(day.feels_like.day);
+                day.feels_like.eve = celsiusToFahrenheit(day.feels_like.eve);
+                day.feels_like.morn = celsiusToFahrenheit(day.feels_like.morn);
+                day.feels_like.night = celsiusToFahrenheit(day.feels_like.night);
+            })
+            setAcquiredWeatherData(configuredWeatherData)
+        }
+        console.log('HIT EFFECT')
+    }
+
+    const celsiusToFahrenheit = (celsius) => {
+        let cel = (celsius * 9/5) + 32;
+        return Math.round(cel);
+    }
+
+    const fahrenheitToCelsius = (fahrenheit) => {
+        let fah = (fahrenheit - 32) * 5/9
+        return Math.round(fah);
+    };
 
     const handleCardClick = (day) => {
+        console.log(currentTempType);
         setDataForIndividualCard(day);
         setIsCardClicked(true);
+        console.log(currentTempType);
     }
 
     const handleBackClick = () => {
         setIsCardClicked(false);
     }
 
+    useEffect(() => {
+        console.log('USE EFFECT INITIATED');
+        initialChangeTemp();
+    }, [currentTempType])
+
     return (
         <>
-        <Button color="primary" variant="contained">View Todays</Button>
+        <div className="current-main">
+            <Card className="root-current-card">
+                <CardActionArea>
+                    <CardMedia className="media" image={Dusk} />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Today
+                        </Typography>
+                        <Typography component="div">
+                            <p>Current Temp: {acquiredWeatherData.current.temp} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
+                        </Typography>
+                        </CardContent>
+                </CardActionArea>
+            </Card>
+        </div>
         {!isCardClicked ?
         <div className="main-weatherCard">
         {acquiredWeatherData.daily.map(day => {
@@ -50,8 +112,8 @@ const WeatherCard = ({weatherData}) => {
                                     {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' })}
                                 </Typography>
                                 <Typography component="div">
-                                    <p>{day.temp.max}</p>
-                                    <p>{day.temp.min}</p>
+                                    <p>High: {day.temp.max} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
+                                    <p>Low: {day.temp.min} {currentTempType === 'Fahrenheit' ? '\u00B0C' : '\u00B0F'}</p>
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -60,7 +122,7 @@ const WeatherCard = ({weatherData}) => {
             })}
         </div> 
         :
-        <IndividualCard dayData={dataForIndividualCard} backClick={handleBackClick} />
+        <IndividualCard dayData={dataForIndividualCard} backClick={handleBackClick} currentTempType={currentTempType} />
         }
         </>
     )

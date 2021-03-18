@@ -10,3 +10,7 @@
 .button span {
     color: white;
 }
+
+.weather-span {
+    cursor: pointer;
+}

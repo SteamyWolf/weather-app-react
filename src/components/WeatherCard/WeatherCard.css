@@ -1,8 +1,15 @@
+.current-main {
+}
+
 .main-weatherCard {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+}
+
+.root-current-card {
+    margin: 20px;
 }
 
 .root-weatherCard {
